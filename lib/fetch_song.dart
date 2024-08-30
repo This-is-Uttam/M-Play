@@ -70,7 +70,7 @@ Future<void> accessStorage() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     final AndroidDeviceInfo info = await deviceInfoPlugin.androidInfo;
     if ((info.version.sdkInt) >= 33) {
-      status = await Permission.manageExternalStorage.request();
+      status = await Permission.audio.request();
     } else {
       status = await Permission.storage.request();
     }

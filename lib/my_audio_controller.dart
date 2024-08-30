@@ -1,10 +1,14 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:audio_service/audio_service.dart';
 
 class MyAudioController extends BaseAudioHandler
     with QueueHandler, SeekHandler {
   // final audioQuery = OnAudioQuery();
   // RxList<SongModel> songs = <SongModel>[].obs;
+  MyAudioController(){
+    setupAudioSession();
+  }
 
   final audioPlayer = AudioPlayer();
 
@@ -105,10 +109,17 @@ class MyAudioController extends BaseAudioHandler
     play();
   }
 
+  Future<void> setupAudioSession() async {
+    print('setupAudioSession called');
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.speech());
+  }
 
 
   playAudio({required String audioPath}) {
     audioPlayer.setUrl(audioPath);
     audioPlayer.play();
   }
+
+
 }
